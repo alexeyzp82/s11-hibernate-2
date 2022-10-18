@@ -11,13 +11,19 @@ public class HibernateSessionFactory {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
 
+
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 registry = new StandardServiceRegistryBuilder().configure().build();
-                MetadataSources sources = new MetadataSources(registry);
-                Metadata metadata = sources.getMetadataBuilder().build();
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
+                Metadata sources = new MetadataSources(registry)
+                        .addAnnotatedClass(Role.class)
+                        .addAnnotatedClass(State.class)
+                        .addAnnotatedClass(Task.class)
+                        .addAnnotatedClass(ToDo.class)
+                        .addAnnotatedClass(User.class)
+                        .getMetadataBuilder().build();
+                sessionFactory = sources.getSessionFactoryBuilder().build();
             } catch (Exception e) {
                 e.printStackTrace();
                 if (registry != null) {
