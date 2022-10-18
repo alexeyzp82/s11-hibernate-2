@@ -11,6 +11,7 @@ public class HibernateSessionFactory {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
 
+    private HibernateSessionFactory(){}
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
