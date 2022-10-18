@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService {
         session.getTransaction().begin();
         try {
             session.saveOrUpdate(user);
+            session.flush();
+            session.clear();
             result = session.get(User.class, user.getId());
             session.getTransaction().commit();
         } catch (Exception exception) {
