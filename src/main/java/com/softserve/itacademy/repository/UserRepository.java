@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 // implement method for retrieve user by email (email is unique - so we have only one user)
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findByEmail(String email);
 }
