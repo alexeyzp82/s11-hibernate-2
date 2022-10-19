@@ -1,28 +1,20 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.model.Role;
-import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.RoleRepository;
 import com.softserve.itacademy.service.impl.UserServiceImpl;
-import lombok.ToString;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -59,6 +51,20 @@ public class UserServiceTests {
         assertThat(userService).isNotNull();
         assertThat(roleRepository).isNotNull();
 
+    }
+
+    @Test
+    public void implementsUserService(){
+        Class<?>[] interfaces = UserServiceImpl.class.getInterfaces();
+        assertEquals("UserService", interfaces[0].getSimpleName());
+    }
+
+    @Test
+    public void overridesMethods(){
+        Class<?>[] interfaces = UserServiceImpl.class.getInterfaces();
+        Method[] expectedMethods = interfaces[0].getMethods();
+        Method[] actualMethods = UserServiceImpl.class.getMethods();
+        assertTrue(actualMethods.length>=expectedMethods.length);
     }
 
     @Test
@@ -153,6 +159,5 @@ public class UserServiceTests {
         assertEquals(user1.getFirstName(), actual.getFirstName());
         assertEquals(user1.getLastName(), actual.getLastName());
     }
-
 
 }

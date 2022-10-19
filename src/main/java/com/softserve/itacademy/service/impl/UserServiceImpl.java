@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        if (user.getId() <= 0 || !userRepository.existsById(user.getId())){
-           return userRepository.save(user);
+        if (user.getId() <= 0 || !userRepository.existsById(user.getId())) {
+            return userRepository.save(user);
         }
         return user;
     }
