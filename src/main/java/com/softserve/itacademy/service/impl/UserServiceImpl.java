@@ -20,7 +20,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        return userRepository.save(user);
+        if (user.getId() <= 0 || !userRepository.existsById(user.getId())){
+           return userRepository.save(user);
+        }
+        return user;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
         User updatedUser = readById(user.getId());
 
         if (updatedUser == null) {
-            return userRepository.save(user);
+            return create(user);
         }
 
         updatedUser.setFirstName(user.getFirstName());
