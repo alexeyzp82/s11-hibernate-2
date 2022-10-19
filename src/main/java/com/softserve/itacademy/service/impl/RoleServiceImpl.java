@@ -20,9 +20,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role create(Role role) {
-
-        return roleRepository.save(role);
-        
+        if (role.getId() <= 0 || !roleRepository.existsById(role.getId())){
+            roleRepository.save(role);
+        }
+        return role;
     }
 
     @Override
