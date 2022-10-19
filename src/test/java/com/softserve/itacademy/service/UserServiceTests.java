@@ -123,11 +123,11 @@ public class UserServiceTests {
 
         userService.update(user1);
 
-        User expected = userService.readById(user1.getId());
-        assertEquals(expected.getFirstName(), "James");
-        assertEquals(expected.getLastName(), "Bond");
-        assertEquals(expected.getEmail(), "new@mail.com");
-        assertEquals(expected.getPassword(), "$2a$10$CJgEoobU2gm0euD4ygru4ukBf9g8fYnPrMvYk.q0GMfOcIDtUhEw1");
+        User actual = userService.readById(user1.getId());
+        assertEquals("James", actual.getFirstName());
+        assertEquals("Bond", actual.getLastName());
+        assertEquals( "new@mail.com", actual.getEmail());
+        assertEquals("$2a$10$CJgEoobU2gm0euD4ygru4ukBf9g8fYnPrMvYk.q0GMfOcIDtUhEw1", actual.getPassword());
     }
 
     @Test
