@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class RoleServiceTests {
     private final RoleService roleService;
-    private static Role role1 = new Role();
-    private static Role role2 = new Role();
+    private static final Role role1 = new Role();
+    private static final Role role2 = new Role();
 
     @Autowired
     public RoleServiceTests(RoleService roleService) {
