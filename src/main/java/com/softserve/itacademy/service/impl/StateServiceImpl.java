@@ -66,6 +66,6 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public List<State> getSortAsc() {
-        return stateRepository.sortByName();
+        return stateRepository.findByOrderByNameAsc();
     }
 }
