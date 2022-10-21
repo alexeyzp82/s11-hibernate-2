@@ -66,6 +66,6 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public List<ToDo> getByUserId(long userId) {
-       return toDoRepository.getByUserId(userId);
+       return toDoRepository.findAllByOwnerId(userId);
     }
 }

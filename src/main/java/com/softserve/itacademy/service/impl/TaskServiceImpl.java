@@ -67,6 +67,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> getByTodoId(long todoId) {
-        return taskRepository.getByTodoId(todoId);
+        return taskRepository.findAllByToDoId(todoId);
     }
 }
