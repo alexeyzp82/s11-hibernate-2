@@ -10,4 +10,5 @@ import java.util.List;
 // implement method for retrieving all Todos by userId
 @Repository
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
+    List<ToDo> getByUserId(long id);
 }

@@ -2,46 +2,70 @@ package com.softserve.itacademy.service.impl;
 
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.repository.ToDoRepository;
+import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.service.ToDoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
+    private ToDoRepository toDoRepository;
+    private UserRepository userRepository;
+    @Autowired
+    public ToDoServiceImpl(ToDoRepository toDoRepository, UserRepository userRepository) {
+        this.toDoRepository = toDoRepository;
+        this.userRepository = userRepository;
+    }
+
+    private void verify(ToDo todo, long id) {
+        if (todo == null) {
+            throw new IllegalArgumentException("don't find todo with id = " + id);
+        }
+    }
 
     @Override
     public ToDo create(ToDo todo) {
-        return null;
+        return toDoRepository.save(todo);
     }
 
     @Override
     public ToDo readById(long id) {
-        return null;
+        ToDo todo = toDoRepository.findById(id).orElse(null);
+        verify(todo, id);
+        return todo;
     }
+
+
 
     @Override
     public ToDo update(ToDo todo) {
-        return null;
+        ToDo existingTodo = toDoRepository.findById(todo.getId()).orElse(null);
+        verify(existingTodo, todo.getId());
+        verify(existingTodo, todo.getId());
+        existingTodo.setTitle(todo.getTitle());
+        existingTodo.setOwner(todo.getOwner());
+        existingTodo.setTasks(todo.getTasks());
+        return toDoRepository.save(existingTodo);
     }
 
     @Override
     public void delete(long id) {
-
+        ToDo todo =  toDoRepository.findById(id).orElse(null);
+        verify(todo, id);
+        toDoRepository.delete(todo);
     }
 
     @Override
     public List<ToDo> getAll() {
-        return null;
+        return toDoRepository.findAll();
     }
 
     @Override
     public List<ToDo> getByUserId(long userId) {
-        return null;
+       return toDoRepository.getByUserId(userId);
     }
 }

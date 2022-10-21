@@ -11,5 +11,6 @@ import java.util.List;
 // and all states sorted by name
 @Repository
 public interface StateRepository extends JpaRepository<State, Long> {
-
+    State findByName(String name);
+    List<State> sortByName();
 }
